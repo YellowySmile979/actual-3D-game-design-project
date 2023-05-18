@@ -17,10 +17,15 @@ public class CubeRoll : MonoBehaviour
 	//enums are something like classes, this allows for easier access to variables we want to change
 	public enum CubeDirection {none, left, up, right, down};
 	public CubeDirection direction = CubeDirection.none;
+
+	Quaternion lastRotation;
 	
 	void Start() 
 	{
+		//sets the number of steps available
 		steps = 500;
+		//sets the last rotation
+		lastRotation = Quaternion.identity;
 	}
 
 	void Update() 
@@ -72,30 +77,28 @@ public class CubeRoll : MonoBehaviour
 				}
 			}
 
-			//rotates the cube correctly
+			//handles the rotation of the cube to the new pos
+			//after we determine that the cube is able to move
 			switch(direction) 
 			{
 				case CubeDirection.right:
 					cubeMesh.transform.RotateAround(pivot, -Vector3.forward, rollSpeed * Time.deltaTime);
-					if (cubeMesh.transform.rotation.z <= -0.7) ResetPosition();
+					if (Quaternion.Angle(lastRotation, cubeMesh.transform.rotation) > 90) ResetPosition();
 					break;
 
 				case CubeDirection.left:
 					cubeMesh.transform.RotateAround(pivot, Vector3.forward, rollSpeed * Time.deltaTime);
-					if (cubeMesh.transform.rotation.z >= 0.7) ResetPosition();
+					if (Quaternion.Angle(lastRotation, cubeMesh.transform.rotation) > 90) ResetPosition();
 					break;
 
 				case CubeDirection.up:
 					cubeMesh.transform.RotateAround(pivot, Vector3.right, rollSpeed * Time.deltaTime);
-					if (cubeMesh.transform.rotation.x >= 0.7) ResetPosition();
+					if (Quaternion.Angle(lastRotation, cubeMesh.transform.rotation) > 90) ResetPosition();
 					break;
 
 				case CubeDirection.down:
 					cubeMesh.transform.RotateAround(pivot, -Vector3.right, rollSpeed * Time.deltaTime);
-					if (cubeMesh.transform.rotation.x <= -0.7) 
-					{
-						ResetPosition();
-					}
+					if (Quaternion.Angle(lastRotation, cubeMesh.transform.rotation) > 90) ResetPosition();
 					break;
 			}
         }
@@ -110,7 +113,13 @@ public class CubeRoll : MonoBehaviour
 	{
 		//resets the rotation of the cube mesh, and moves the Player Cube object to the pos of the cube mesh
 		//finally, it centers the cube mesh back on the player cube
-		cubeMesh.transform.rotation = Quaternion.Euler(Vector3.zero);
+		//cubeMesh.transform.rotation = Quaternion.Euler(Vector3.zero);
+		//sets the last rotation
+		lastRotation = cubeMesh.transform.rotation = Quaternion.Euler(
+				Mathf.Round(cubeMesh.transform.rotation.eulerAngles.x / 90) * 90,
+				Mathf.Round(cubeMesh.transform.rotation.eulerAngles.y / 90) * 90,
+				Mathf.Round(cubeMesh.transform.rotation.eulerAngles.z / 90) * 90
+				);
 		transform.position = new Vector3(Mathf.Ceil(cubeMesh.transform.position.x) - 0.5f, 
 			transform.position.y, Mathf.Ceil(cubeMesh.transform.position.z) - 0.5f);
 
