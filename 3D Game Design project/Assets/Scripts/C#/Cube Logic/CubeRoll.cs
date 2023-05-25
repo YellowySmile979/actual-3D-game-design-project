@@ -27,9 +27,32 @@ public class CubeRoll : MonoBehaviour
 		//sets the last rotation
 		lastRotation = Quaternion.identity;
 	}
+	public float GetScale() { return cubeSize; }
+
+	public void SetScale(float size)
+	{
+		cubeSize = size;
+		transform.localScale = new Vector3(size, size, size);
+		ResetPosition();
+	}
 
 	void Update() 
 	{
+		if (Input.GetKeyDown(KeyCode.Z)) SetScale(2);
+		else if (Input.GetKeyDown(KeyCode.X)) SetScale(1);
+		//if our localScale does not matche the cubeSize set, then we scale our cube towards the cubeSize gradually
+        if (Mathf.Abs(cubeSize - transform.localScale.x) > 0.1f)
+        {
+			transform.localScale = Vector3.Lerp(
+				transform.localScale, 
+				new Vector3(cubeSize, cubeSize, cubeSize), 
+				Time.deltaTime * 8
+				);
+        }
+        else
+        {
+			transform.localScale = new Vector3(cubeSize, cubeSize, cubeSize);
+        }
 		//checks to see if the cube is moving and in what direction
         if (direction == CubeDirection.none)
         {
@@ -120,8 +143,23 @@ public class CubeRoll : MonoBehaviour
 				Mathf.Round(cubeMesh.transform.rotation.eulerAngles.y / 90) * 90,
 				Mathf.Round(cubeMesh.transform.rotation.eulerAngles.z / 90) * 90
 				);
-		transform.position = new Vector3(Mathf.Ceil(cubeMesh.transform.position.x) - 0.5f, 
-			transform.position.y, Mathf.Ceil(cubeMesh.transform.position.z) - 0.5f);
+		//rounding of coords isdifferent for even vs odd
+        if (cubeSize % 2 == 0)
+        {
+			transform.position = new Vector3(
+				Mathf.Round(cubeMesh.transform.position.x),
+				transform.position.y,
+				Mathf.Round(cubeMesh.transform.position.z)
+				);
+		}
+        else
+        {
+			transform.position = new Vector3(
+				Mathf.Ceil(cubeMesh.transform.position.x) - 0.5f, 
+				transform.position.y, 
+				Mathf.Ceil(cubeMesh.transform.position.z) - 0.5f
+				);
+        }
 
 		cubeMesh.transform.localPosition = Vector3.zero;
 		//is moving is false so the cube doesnt continue moving
