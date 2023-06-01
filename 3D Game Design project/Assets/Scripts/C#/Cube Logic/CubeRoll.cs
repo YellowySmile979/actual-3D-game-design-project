@@ -20,8 +20,14 @@ public class CubeRoll : MonoBehaviour
 
 	Quaternion lastRotation;
 	bool isClimbing = false;
-	
-	void Start() 
+
+	public static CubeRoll Instance;
+
+    void Awake()
+    {
+		Instance = this;
+    }
+    void Start() 
 	{
 		//sets the number of steps available
 		steps = 500;
@@ -33,14 +39,14 @@ public class CubeRoll : MonoBehaviour
 	public void SetScale(float size)
 	{
 		cubeSize = size;
-		transform.localScale = new Vector3(size, size, size);
+		transform.localScale = new Vector3(size, 1, 1);
 		ResetPosition();
 	}
 
 	void Update() 
 	{
-		if (Input.GetKeyDown(KeyCode.Z)) SetScale(2);
-		else if (Input.GetKeyDown(KeyCode.X)) SetScale(1);
+		//if (Input.GetKeyDown(KeyCode.Z)) SetScale(2);
+		//else if (Input.GetKeyDown(KeyCode.X)) SetScale(1);
 		//if our localScale does not matche the cubeSize set, then we scale our cube towards the cubeSize gradually
         if (Mathf.Abs(cubeSize - transform.localScale.x) > 0.1f)
         {

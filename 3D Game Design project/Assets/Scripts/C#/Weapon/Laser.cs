@@ -6,7 +6,6 @@ using UnityEngine;
 public class Laser : MonoBehaviour
 {
     public float maxDistance = 20f;
-    Transform lastHitMirror;
 
     LineRenderer lr;
 
@@ -23,8 +22,7 @@ public class Laser : MonoBehaviour
     {
         lr.positionCount = 2;
         Vector3 direction = transform.forward,
-                a = transform.position, 
-                b = a + direction * maxDistance;
+                a = transform.position, b;
 
         int bounces = 1;
 
@@ -33,11 +31,13 @@ public class Laser : MonoBehaviour
         while (bounces < lr.positionCount)
         {
             RaycastHit[] hits = Physics.RaycastAll(a, direction, maxDistance);
+
+            b = a + direction * maxDistance;
             foreach (RaycastHit hit in hits)
             {
                 //ignore the raycast if we hit ourselves
                 if (hit.collider.gameObject == gameObject) continue;
-                if (hit.transform == lastHitMirror) continue;
+                //if (hit.transform == lastHitMirror) continue;
 
                 //otherwise stop the laser's position
                 b = hit.transform.position;
@@ -45,13 +45,11 @@ public class Laser : MonoBehaviour
                 {
                     direction = hit.transform.right;
                     lr.positionCount++;
-                    lastHitMirror = hit.transform;
                 }
 
                 break; //we only want the 1st hit
             }
-            lr.SetPosition(bounces, b);
-            bounces++;
+            lr.SetPosition(bounces++, b);
             a = b;
 
             //failsafe in case of infinite loop
