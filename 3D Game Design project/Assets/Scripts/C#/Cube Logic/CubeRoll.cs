@@ -19,6 +19,7 @@ public class CubeRoll : MonoBehaviour
 	public CubeDirection direction = CubeDirection.none;
 
 	Quaternion lastRotation;
+	bool isClimbing = false;
 	
 	void Start() 
 	{
@@ -81,8 +82,7 @@ public class CubeRoll : MonoBehaviour
 			{				
 				if (CheckCollision(direction)) 
 				{
-					isMoving = false;
-					direction = CubeDirection.none;
+					isMoving = false;					
 
 					//if push block is in the way, push it
 					if (hit.collider.gameObject.GetComponent<PushBlock>())
@@ -90,6 +90,16 @@ public class CubeRoll : MonoBehaviour
 						hit.collider.gameObject.GetComponent<PushBlock>().Move((transform.position -
 							hit.collider.transform.position).normalized, 1);
 					}
+					else if (!CheckCollision(direction, true))
+                    {
+						CalculatePivot(true);
+						DeductStepCount();
+						isMoving = true;
+						isClimbing = true;
+						return;
+                    }
+
+					direction = CubeDirection.none;
 					return;
 				} 
 				else 
@@ -106,25 +116,25 @@ public class CubeRoll : MonoBehaviour
 			{
 				case CubeDirection.right:
 					cubeMesh.transform.RotateAround(pivot, -Vector3.forward, rollSpeed * Time.deltaTime);
-					if (Quaternion.Angle(lastRotation, cubeMesh.transform.rotation) > 90) ResetPosition();
-					break;
+                    break;
 
 				case CubeDirection.left:
 					cubeMesh.transform.RotateAround(pivot, Vector3.forward, rollSpeed * Time.deltaTime);
-					if (Quaternion.Angle(lastRotation, cubeMesh.transform.rotation) > 90) ResetPosition();
-					break;
+                    break;
 
 				case CubeDirection.up:
 					cubeMesh.transform.RotateAround(pivot, Vector3.right, rollSpeed * Time.deltaTime);
-					if (Quaternion.Angle(lastRotation, cubeMesh.transform.rotation) > 90) ResetPosition();
-					break;
+                    break;
 
 				case CubeDirection.down:
 					cubeMesh.transform.RotateAround(pivot, -Vector3.right, rollSpeed * Time.deltaTime);
-					if (Quaternion.Angle(lastRotation, cubeMesh.transform.rotation) > 90) ResetPosition();
-					break;
+                    break;
 			}
-        }
+			if (Quaternion.Angle(lastRotation, cubeMesh.transform.rotation) > (isClimbing ? 170 : 90))
+			{
+				ResetPosition();
+			}
+		}
 
 		if(transform.position.y <= -10) 
 		{
@@ -148,15 +158,15 @@ public class CubeRoll : MonoBehaviour
         {
 			transform.position = new Vector3(
 				Mathf.Round(cubeMesh.transform.position.x),
-				transform.position.y,
+				cubeMesh.transform.position.y,
 				Mathf.Round(cubeMesh.transform.position.z)
 				);
 		}
         else
         {
 			transform.position = new Vector3(
-				Mathf.Ceil(cubeMesh.transform.position.x) - 0.5f, 
-				transform.position.y, 
+				Mathf.Ceil(cubeMesh.transform.position.x) - 0.5f,
+				cubeMesh.transform.position.y, 
 				Mathf.Ceil(cubeMesh.transform.position.z) - 0.5f
 				);
         }
@@ -164,6 +174,7 @@ public class CubeRoll : MonoBehaviour
 		cubeMesh.transform.localPosition = Vector3.zero;
 		//is moving is false so the cube doesnt continue moving
 		isMoving = false;
+		isClimbing = false;
 
 		//pushes any push block that is in the direction we move
 		/*if(CheckCollision(direction) && hit.collider != null) 
@@ -180,23 +191,25 @@ public class CubeRoll : MonoBehaviour
 	}
 
 	//flips the cube ie the cube's movement
-	void CalculatePivot() 
+	void CalculatePivot(bool placeOnTop = false) 
 	{
+		float y = placeOnTop ? 1 : -1;
+
 		//flips the cube correctly in the right direction
 		//sets the pivot based on which direction it is moving
 		switch(direction) 
 		{
 			case CubeDirection.right:
-				pivot = new Vector3(1, -1, 0);
+				pivot = new Vector3(1, y, 0);
 				break;
 			case CubeDirection.left:
-				pivot = new Vector3(-1, -1, 0);
+				pivot = new Vector3(-1, y, 0);
 				break;
 			case CubeDirection.up:
-				pivot = new Vector3(0, -1, 1);
+				pivot = new Vector3(0, y, 1);
 				break;
 			case CubeDirection.down:
-				pivot = new Vector3(0, -1, -1);
+				pivot = new Vector3(0, y, -1);
 				break;
 		}
 
@@ -205,32 +218,34 @@ public class CubeRoll : MonoBehaviour
 		if(GetComponent<AudioSource>()) GetComponent<AudioSource>().Play(); // Play the flop sound 
 	}
 
-	bool CheckCollision(CubeDirection direction) 
+	bool CheckCollision(CubeDirection direction, bool checkAbove = false) 
 	{
+		Vector3 dir = Vector3.zero, offset = checkAbove ? Vector3.up * cubeSize : Vector3.zero;
+
 		switch(direction) 
 		{
 			case CubeDirection.right:
-				Physics.Linecast(transform.position, transform.position + transform.right* 1, out hit);
-				Debug.DrawLine(transform.position, transform.position + transform.right* 1, Color.black);
+				dir = transform.right;
 				break;
 
 			case CubeDirection.left:
-				Physics.Linecast(transform.position, transform.position + transform.right* -1, out hit);
-				Debug.DrawLine(transform.position, transform.position + transform.right* -1, Color.black);
+				dir = -transform.right;
 				break;
 
 			case CubeDirection.up:
-				Physics.Linecast(transform.position, transform.position + transform.forward* 1, out hit);
-				Debug.DrawLine(transform.position, transform.position + transform.forward* 1, Color.black);
+				dir = transform.forward;
 				break;
 
 			case CubeDirection.down:
-				Physics.Linecast(transform.position, transform.position + transform.forward* -1, out hit);
-				Debug.DrawLine(transform.position, transform.position + transform.forward* -1, Color.black);
+				dir = -transform.forward;
 				break;
 		}
 
-		if(hit.collider == null || (hit.collider != null && hit.collider.isTrigger && !hit.collider.GetComponent("Player"))) 
+		//Physics.Linecast(transform.position + offset, transform.position + transform.right* 1, out hit);
+		Physics.BoxCast(transform.position + offset, transform.localScale * 0.4f, dir, out hit, Quaternion.identity, cubeSize);
+		Debug.DrawLine(transform.position + offset, transform.position + dir * cubeSize, Color.black);
+
+		if (hit.collider == null || (hit.collider != null && hit.collider.isTrigger && !hit.collider.GetComponent("Player"))) 
 		{
 			return false;
 		} 
