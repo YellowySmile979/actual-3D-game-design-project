@@ -4,30 +4,35 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class CountDownTime : MonoBehaviour {
+public class CountDownTime : MonoBehaviour 
+{
+	float startTime = 300.0f; // Time given to complete game
+	float timeRemaining;
 
-	private float startTime = 300.0f; // Time given to complete game
-	private float timeRemaining;
-
-	void Start() {
+	void Start() 
+	{
 		GetComponent<Text>().material.color = Color.white; // GUI text color
 	}
 
-	void Update() {
+	void Update() 
+	{
 		CountDown();
 	}
 
-	void CountDown() {
+	void CountDown() 
+	{
 		timeRemaining = startTime - Time.timeSinceLevelLoad;
 		ShowTime();
 
-		if(timeRemaining < 0) {
+		if(timeRemaining < 0) 
+		{
 			timeRemaining = 0;
 			TimeIsUp();
 		}
 	}
 
-	void ShowTime() {
+	void ShowTime() 
+	{
 		int minutes;
 		int seconds;
 		string timeString;
@@ -38,7 +43,8 @@ public class CountDownTime : MonoBehaviour {
 		GetComponent<Text>().text = timeString;
 	}
 
-	void TimeIsUp() {
+	void TimeIsUp() 
+	{
 		SceneManager.LoadScene("Lose");
 	}
 }

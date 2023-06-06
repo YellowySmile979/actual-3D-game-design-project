@@ -29,7 +29,8 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q) && playerCube.transform.localScale != new Vector3(1, 1, 1))
         {
-            Instantiate(growCube, transform.position, Quaternion.identity);
+            Instantiate(growCube, transform.position + new Vector3(0.5f, 0, 0.5f), Quaternion.identity);
+            CubeRoll.Instance.SetScale(1);
         }
     }
     public void ReceiveCubeInfo(GrowCubeData growCubeData)

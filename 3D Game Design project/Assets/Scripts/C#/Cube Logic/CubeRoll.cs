@@ -30,7 +30,7 @@ public class CubeRoll : MonoBehaviour
     void Start() 
 	{
 		//sets the number of steps available
-		steps = 500;
+		steps = 100;
 		//sets the last rotation
 		lastRotation = Quaternion.identity;
 	}
@@ -39,7 +39,7 @@ public class CubeRoll : MonoBehaviour
 	public void SetScale(float size)
 	{
 		cubeSize = size;
-		transform.localScale = new Vector3(size, 1, 1);
+		transform.localScale = new Vector3(size, size, size);
 		ResetPosition();
 	}
 

@@ -6,4 +6,5 @@ using UnityEngine;
 public class GrowCubeData : ScriptableObject
 {
     public GameObject thisObject;
+    public bool hasBeenUsed = false;
 }

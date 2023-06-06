@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CountSteps : MonoBehaviour {
-	void Update() {
+public class CountSteps : MonoBehaviour 
+{
+	void Update() 
+	{
 		GetComponent<Text>().text = "STEPS LEFT > " + CubeRoll.steps.ToString();
 	}
 }

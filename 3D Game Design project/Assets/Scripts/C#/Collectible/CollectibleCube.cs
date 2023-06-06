@@ -2,10 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GrowCube : MonoBehaviour
+public class CollectibleCube : MonoBehaviour
 {
-    [Header("Grow Cube Data")]
-    public GrowCubeData growCubeData;
     [Header("Cube Bob")]
     public float cubeBobOffset;
     public float bobSpeed = 5f;
@@ -33,19 +31,10 @@ public class GrowCube : MonoBehaviour
     }
     void OnTriggerEnter(Collider other)
     {
-        if (growCubeData.hasBeenUsed == false && other.GetComponent<CubeRoll>())
-        {
-            CubeRoll.Instance.SetScale(2);
-            PlayerController.Instance.ReceiveCubeInfo(growCubeData);
-            growCubeData.hasBeenUsed = true;
-            Destroy(gameObject);
-        }
-    }
-    void OnTriggerExit(Collider other)
-    {
         if (other.GetComponent<CubeRoll>())
         {
-            growCubeData.hasBeenUsed = false;
+            CanvasScript.Instance.CountCollectibles(1);
+            Destroy(gameObject);
         }
     }
     //handles cube bobbing
@@ -63,18 +52,10 @@ public class GrowCube : MonoBehaviour
         //depending on the direction of travel, change the direction the cube actual moves
         if (direction)
         {
-            /*transform.position = new Vector3(originalPosition.x, 
-                                 Mathf.Lerp(transform.position.y, originalPosition.y - cubeBobOffset, bobSpeed),
-                                 originalPosition.z
-                                 );*/
             transform.position -= new Vector3(0, bobSpeed) * Time.deltaTime;
         }
         else if (!direction)
         {
-            /*transform.position = new Vector3(originalPosition.x,
-                                 Mathf.Lerp(transform.position.y, originalPosition.y + cubeBobOffset, bobSpeed),
-                                 originalPosition.z
-                                 );*/
             transform.position += new Vector3(0, bobSpeed) * Time.deltaTime;
         }
     }
@@ -83,11 +64,11 @@ public class GrowCube : MonoBehaviour
     {
         //checks to see if the cube is at the original position or is actively rotating
         //otherwise reset it back to the original rotation
-        if(transform.localRotation == originalRotation || transform.localRotation != originalRotation)
+        if (transform.localRotation == originalRotation || transform.localRotation != originalRotation)
         {
             transform.RotateAround(pivot.transform.position, Vector3.up, rotateSpeed * Time.deltaTime);
         }
-        else if(transform.localRotation == new Quaternion(0, 360, 0, 0))
+        else if (transform.localRotation == new Quaternion(0, 360, 0, 0))
         {
             transform.localRotation = originalRotation;
         }
