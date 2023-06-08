@@ -275,7 +275,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeText: {fileID: 2639142185369794927}
   stepsText: {fileID: 2639142184571217244}
+  collectibleText: {fileID: 1214978409}
   startTime: 300
+  collectibleCount: 0
 --- !u!1 &2639142185369794924
 GameObject:
   m_ObjectHideFlags: 0

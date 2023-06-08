@@ -7,4 +7,5 @@ public class GrowCubeData : ScriptableObject
 {
     public GameObject thisObject;
     public bool hasBeenUsed = false;
+    public float scaleFactor = 2f;
 }

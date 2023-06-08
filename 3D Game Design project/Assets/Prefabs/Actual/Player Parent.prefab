@@ -79,6 +79,7 @@ MonoBehaviour:
   cubeMesh: {fileID: 8145169819250832635}
   rollForever: 0
   pivot: {x: 0, y: 0, z: 0}
+  cubeSize: 1
   direction: 0
 --- !u!114 &6231927244557955902
 MonoBehaviour:
@@ -93,6 +94,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   growCube: {fileID: 0}
+  growCubeData: {fileID: 11400000, guid: 790df8a6459ad6a418832023b1fd0fd4, type: 2}
+  biggerGrowCubeData: {fileID: 11400000, guid: 0e4b86da2d000704ab92389a0bfed703, type: 2}
 --- !u!1 &6684207444600936576
 GameObject:
   m_ObjectHideFlags: 0

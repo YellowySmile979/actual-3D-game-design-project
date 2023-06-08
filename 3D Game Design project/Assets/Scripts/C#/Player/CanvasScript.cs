@@ -29,7 +29,12 @@ public class CanvasScript : MonoBehaviour
 	{
 		CountDown();
 		ShowSteps();
+		UpdateCollectibleText();
 	}
+	public void UpdateCollectibleText()
+    {
+		collectibleText.text = "Collectible: " + PlayerPrefs.GetInt("collectible");
+    }
 
 	public void CountCollectibles(int value)
     {

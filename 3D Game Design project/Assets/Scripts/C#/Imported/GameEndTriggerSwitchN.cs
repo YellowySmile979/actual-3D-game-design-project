@@ -10,7 +10,10 @@ public class GameEndTriggerSwitchN : MonoBehaviour
 
 	IEnumerator OnTriggerEnter(Collider collider) 
 	{
-		yield return new WaitForSeconds(waitTime);
-		SceneManager.LoadScene(nextScene);
+        if (collider.GetComponent<PlayerController>() && CubeRoll.Instance.cubeSize == 1)
+        {
+			yield return new WaitForSeconds(waitTime);
+			SceneManager.LoadScene(nextScene);
+		}		
 	}
 }

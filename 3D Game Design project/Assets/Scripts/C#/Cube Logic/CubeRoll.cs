@@ -11,7 +11,7 @@ public class CubeRoll : MonoBehaviour
 	private bool isMoving = false;
 	private RaycastHit hit;
 	public Vector3 pivot;
-	private float cubeSize = 1; // Block cube size
+	[HideInInspector] public float cubeSize = 1; // Block cube size
 	public static int steps;
 	
 	//enums are something like classes, this allows for easier access to variables we want to change

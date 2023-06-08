@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public GameObject growCube;
+    public GrowCubeData growCubeData, biggerGrowCubeData;
     GameObject playerCube;
 
     public static PlayerController Instance;
@@ -27,10 +28,13 @@ public class PlayerController : MonoBehaviour
 
     public void ResummonCube()
     {
-        if (Input.GetKeyDown(KeyCode.Q) && playerCube.transform.localScale != new Vector3(1, 1, 1))
+        if (Input.GetKeyDown(KeyCode.Z) && playerCube.transform.localScale != new Vector3(1, 1, 1))
         {
             Instantiate(growCube, transform.position + new Vector3(0.5f, 0, 0.5f), Quaternion.identity);
             CubeRoll.Instance.SetScale(1);
+            growCubeData.hasBeenUsed = false;
+            biggerGrowCubeData.hasBeenUsed = false;
+
         }
     }
     public void ReceiveCubeInfo(GrowCubeData growCubeData)

@@ -6,6 +6,8 @@ public class GrowCube : MonoBehaviour
 {
     [Header("Grow Cube Data")]
     public GrowCubeData growCubeData;
+    public GrowCubeData biggerGrowCubeData;
+    [SerializeField] int whichOneToUse = 0;
     [Header("Cube Bob")]
     public float cubeBobOffset;
     public float bobSpeed = 5f;
@@ -33,11 +35,22 @@ public class GrowCube : MonoBehaviour
     }
     void OnTriggerEnter(Collider other)
     {
-        if (growCubeData.hasBeenUsed == false && other.GetComponent<CubeRoll>())
-        {
-            CubeRoll.Instance.SetScale(2);
-            PlayerController.Instance.ReceiveCubeInfo(growCubeData);
-            growCubeData.hasBeenUsed = true;
+        if ((growCubeData.hasBeenUsed == false || biggerGrowCubeData.hasBeenUsed == false) 
+            && other.GetComponent<CubeRoll>())
+        {                       
+            if (whichOneToUse == 0)
+            {
+                CubeRoll.Instance.SetScale(growCubeData.scaleFactor);
+                PlayerController.Instance.ReceiveCubeInfo(growCubeData);
+                growCubeData.hasBeenUsed = true;
+            }
+            else if (whichOneToUse == 1)
+            {
+                CubeRoll.Instance.SetScale(biggerGrowCubeData.scaleFactor);
+                PlayerController.Instance.ReceiveCubeInfo(biggerGrowCubeData);
+                biggerGrowCubeData.hasBeenUsed = true;
+            }
+
             Destroy(gameObject);
         }
     }
@@ -45,7 +58,14 @@ public class GrowCube : MonoBehaviour
     {
         if (other.GetComponent<CubeRoll>())
         {
-            growCubeData.hasBeenUsed = false;
+            if (whichOneToUse == 0)
+            {
+                growCubeData.hasBeenUsed = false;
+            }
+            else if (whichOneToUse == 1)
+            {
+                biggerGrowCubeData.hasBeenUsed = false;
+            }
         }
     }
     //handles cube bobbing
