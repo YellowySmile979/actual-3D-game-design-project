@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 1248699606}
   m_Layer: 0
   m_Name: Player Cube Prefab
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -160,6 +160,7 @@ MonoBehaviour:
   cubeMesh: {fileID: 400000}
   rollForever: 0
   pivot: {x: 0, y: 0, z: 0}
+  cubeSize: 1
   direction: 0
 --- !u!114 &1248699606
 MonoBehaviour:
@@ -173,3 +174,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c97b623de4faad4fb1229f9ffbffa66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  growCube: {fileID: 0}
+  growCubeData: {fileID: 0}
+  biggerGrowCubeData: {fileID: 0}
