@@ -40,23 +40,25 @@ public class PlayerController : MonoBehaviour
                     return;
                 case 0:
                     //finds the correct growcube within the list and spawns it
-                    GameObject growCube = Instantiate(growCubes.Find(
-                        s => growCubeData.growthSizeFactor == GrowCubeData.GrowthSizeFactor.size2), 
+                    GameObject growCube = Instantiate(
+                        growCubes.Find(s => growCubeData.growthSizeFactor == GrowCubeData.GrowthSizeFactor.size2), 
                         transform.position + new Vector3(0.5f, 0, 0.5f), 
-                        Quaternion.identity);
+                        Quaternion.identity
+                        );
                     //afterwards immediately deleting it
-                    growCubes.Remove(growCubes.Find(s => growCube));
+                    growCubes.Remove(growCubes.Find(b => growCube));
                     CubeRoll.Instance.SetScale(1);
                     growCubeData.hasBeenUsed = false;
                     number = 0;
                     break;
                 case 1:
                     //same thing as above
-                    GameObject biggerGrowCube = Instantiate(growCubes.Find(
-                        s => biggerGrowCubeData.growthSizeFactor == GrowCubeData.GrowthSizeFactor.size3),
+                    GameObject biggerGrowCube = Instantiate(
+                        growCubes.Find(a => biggerGrowCubeData.growthSizeFactor == GrowCubeData.GrowthSizeFactor.size3),
                         transform.position + new Vector3(-1.5f, -1, -1.5f),
-                        Quaternion.identity);
-                    growCubes.Remove(growCubes.Find(s => biggerGrowCube));
+                        Quaternion.identity
+                        );
+                    growCubes.Remove(growCubes.Find(c => biggerGrowCube));
                     CubeRoll.Instance.SetScale(2);
                     biggerGrowCubeData.hasBeenUsed = false;
                     number = 1;

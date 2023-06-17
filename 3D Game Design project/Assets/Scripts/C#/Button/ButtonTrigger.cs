@@ -7,7 +7,7 @@ public class ButtonTrigger : MonoBehaviour
     public List<BlockAffectedByButton> objectsAffected = new List<BlockAffectedByButton>();
     public List<GameObject> platformBlocks = new List<GameObject>();
 
-    bool activateYesOrNo;
+    [SerializeField] bool activateYesOrNo;
 
     // Start is called before the first frame update
     void Start()
