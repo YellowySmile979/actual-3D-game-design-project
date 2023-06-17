@@ -2,12 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GrowCube : MonoBehaviour
+public abstract class BaseGrowCube : MonoBehaviour
 {
-    [Header("Grow Cube Data")]
-    public GrowCubeData growCubeData;
-    public GrowCubeData biggerGrowCubeData;
-    [SerializeField] int whichOneToUse = 0;
+    [Header("Grow Cube Info")]
+    public int whichOneToUse = 0;
     [Header("Cube Bob")]
     public float cubeBobOffset;
     public float bobSpeed = 5f;
@@ -15,17 +13,14 @@ public class GrowCube : MonoBehaviour
     public float rotateSpeed = 5f;
     public GameObject pivot;
     bool direction;
-    Vector3 originalPosition;
-    Quaternion originalRotation;
+    protected Vector3 originalPosition;
+    protected Quaternion originalRotation;
 
-    void Awake()
-    {
-        originalPosition = transform.position;
-        originalRotation = transform.localRotation;
-    }
     void Start()
     {
+        //sets the pivot of the growcube automatically assuming user hasnt done it already
         if (pivot == null) pivot = this.gameObject;
+        //can also be true since all this does is give the cube a push to start moving
         direction = false;
     }
     void Update()
@@ -35,36 +30,48 @@ public class GrowCube : MonoBehaviour
     }
     void OnTriggerEnter(Collider other)
     {
-        if ((growCubeData.hasBeenUsed == false || biggerGrowCubeData.hasBeenUsed == false) 
+        //checks to see if either of the growcubes have been used and if the colliding block is the player
+        if ((GrowCubeNormal.Instance.growCubeData.hasBeenUsed == false || 
+            GrowCubeBigger.Instance.biggerGrowCubeData.hasBeenUsed == false) 
             && other.GetComponent<CubeRoll>())
-        {                       
+        {
+            //updates the function that check and ensures the right size of the cube is set
+            PlayerController.Instance.IndexOfGrowCube(whichOneToUse);
+            //decides which instructions to use
             if (whichOneToUse == 0)
             {
-                CubeRoll.Instance.SetScale(growCubeData.scaleFactor);
-                PlayerController.Instance.ReceiveCubeInfo(growCubeData);
-                growCubeData.hasBeenUsed = true;
+                PlayerController.Instance.number = 1;
+                //sets the scale of the cube
+                CubeRoll.Instance.SetScale(GrowCubeNormal.Instance.growCubeData.scaleFactor);
+                //updates the cube info in the PlayerController script
+                PlayerController.Instance.ReceiveCubeInfo(GrowCubeNormal.Instance.growCubeData.thisObject);
+                GrowCubeNormal.Instance.growCubeData.hasBeenUsed = true;
+                Destroy(gameObject);
             }
             else if (whichOneToUse == 1)
             {
-                CubeRoll.Instance.SetScale(biggerGrowCubeData.scaleFactor);
-                PlayerController.Instance.ReceiveCubeInfo(biggerGrowCubeData);
-                biggerGrowCubeData.hasBeenUsed = true;
+                if (PlayerController.Instance.number == 1)
+                {
+                    CubeRoll.Instance.SetScale(GrowCubeBigger.Instance.biggerGrowCubeData.scaleFactor);
+                    PlayerController.Instance.ReceiveCubeInfo(GrowCubeBigger.Instance.biggerGrowCubeData.thisObject);
+                    GrowCubeBigger.Instance.biggerGrowCubeData.hasBeenUsed = true;
+                    Destroy(gameObject);
+                }
             }
-
-            Destroy(gameObject);
         }
     }
+    //sets the bool to false to ensure when the player shrinks to not trigger the thing again
     void OnTriggerExit(Collider other)
     {
         if (other.GetComponent<CubeRoll>())
         {
             if (whichOneToUse == 0)
             {
-                growCubeData.hasBeenUsed = false;
+                GrowCubeNormal.Instance.growCubeData.hasBeenUsed = false;
             }
             else if (whichOneToUse == 1)
             {
-                biggerGrowCubeData.hasBeenUsed = false;
+                GrowCubeBigger.Instance.biggerGrowCubeData.hasBeenUsed = false;
             }
         }
     }

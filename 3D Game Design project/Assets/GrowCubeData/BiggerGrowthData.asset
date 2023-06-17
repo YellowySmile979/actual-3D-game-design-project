@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e0ab8a5590ec4f44abd3c8fba4fb16f, type: 3}
   m_Name: BiggerGrowthData
   m_EditorClassIdentifier: 
-  thisObject: {fileID: 1790591398119500760, guid: bf06b3a320340934ebff2c0583113c7f, type: 3}
+  thisObject: {fileID: 3525897599831993110, guid: 243551bfb61689145b3b297e27145cec, type: 3}
   hasBeenUsed: 0
   scaleFactor: 3
+  growthSizeFactor: 1

@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Mirror
   - Pushable
+  - NormalGrowCube
+  - BiggerGrowCube
   layers:
   - Default
   - TransparentFX

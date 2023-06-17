@@ -93,9 +93,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c97b623de4faad4fb1229f9ffbffa66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  growCube: {fileID: 0}
+  growCubes: []
   growCubeData: {fileID: 11400000, guid: 790df8a6459ad6a418832023b1fd0fd4, type: 2}
   biggerGrowCubeData: {fileID: 11400000, guid: 0e4b86da2d000704ab92389a0bfed703, type: 2}
+  chosenGrowCube: 0
+  growCubeNormal: {fileID: 0}
 --- !u!1 &6684207444600936576
 GameObject:
   m_ObjectHideFlags: 0
