@@ -122,5 +122,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6532af1d03371ec4298ae7d599a82026, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextScene: Level 1
   waitTime: 0.2
+  winScreen: {fileID: 0}
+  textScreen: {fileID: 0}

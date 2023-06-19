@@ -22336,9 +22336,13 @@ PrefabInstance:
       value: Goal
       objectReference: {fileID: 0}
     - target: {fileID: 8802982813299432039, guid: 67006cd1b062637488b923004a15e71e, type: 3}
-      propertyPath: nextScene
-      value: Level 2
-      objectReference: {fileID: 0}
+      propertyPath: winScreen
+      value: 
+      objectReference: {fileID: 1386970897}
+    - target: {fileID: 8802982813299432039, guid: 67006cd1b062637488b923004a15e71e, type: 3}
+      propertyPath: textScreen
+      value: 
+      objectReference: {fileID: 1386970896}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 67006cd1b062637488b923004a15e71e, type: 3}
 --- !u!1001 &1215773055
@@ -25885,6 +25889,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 788719245538126477, guid: c83b6d1ef02887e4ca342c7b05c4edfc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 788719245538126479, guid: c83b6d1ef02887e4ca342c7b05c4edfc, type: 3}
+      propertyPath: nextLevel
+      value: Level 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2639142185141346221, guid: c83b6d1ef02887e4ca342c7b05c4edfc, type: 3}
       propertyPath: m_Name
       value: Canvas
@@ -25973,8 +25985,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6667793556450543661, guid: c83b6d1ef02887e4ca342c7b05c4edfc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c83b6d1ef02887e4ca342c7b05c4edfc, type: 3}
+--- !u!1 &1386970896 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6667793556450543661, guid: c83b6d1ef02887e4ca342c7b05c4edfc, type: 3}
+  m_PrefabInstance: {fileID: 1386970895}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1386970897 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 788719245538126477, guid: c83b6d1ef02887e4ca342c7b05c4edfc, type: 3}
+  m_PrefabInstance: {fileID: 1386970895}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1389806864
 PrefabInstance:
   m_ObjectHideFlags: 0
