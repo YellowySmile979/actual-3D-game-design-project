@@ -15,6 +15,12 @@ public class LevelTransition : MonoBehaviour
     {
         SceneManager.LoadScene(nextLevel);
     }
+    //starts the game
+    public void StartGame()
+    {
+        PlayerPrefs.SetInt("collectible", 0);
+        SceneManager.LoadScene(nextLevel);
+    }
     //loads the main menu
     public void BackToMainMenu()
     {
@@ -29,5 +35,10 @@ public class LevelTransition : MonoBehaviour
     public void ShowInstructions()
     {
         instructionsScreen.SetActive(true);
+    }
+    //hides the instructions
+    public void HideInstructions()
+    {
+        instructionsScreen.SetActive(false);
     }
 }

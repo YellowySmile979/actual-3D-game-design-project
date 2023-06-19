@@ -33,7 +33,7 @@ public class CanvasScript : MonoBehaviour
 	}
 	public void UpdateCollectibleText()
     {
-		collectibleText.text = "Collectible: " + PlayerPrefs.GetInt("collectible") + collectibleCount;
+		collectibleText.text = "Collectible: " + (PlayerPrefs.GetInt("collectible") + collectibleCount);
     }
 
 	public void CountCollectibles(int value)
