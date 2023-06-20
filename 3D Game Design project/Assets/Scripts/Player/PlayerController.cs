@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("Related to Grow Cube")]
     public List<GameObject> growCubes = new List<GameObject>();
     public GrowCubeData growCubeData, biggerGrowCubeData;
     public int number;
-
     [SerializeField] int chosenGrowCube;
+
     GameObject playerCube;    
 
     //a singleton, makes calling this script easier
@@ -16,7 +17,7 @@ public class PlayerController : MonoBehaviour
 
     void Awake()
     {
-        Instance = this;
+        Instance = this;       
     }
     // Start is called before the first frame update
     void Start()
@@ -29,6 +30,7 @@ public class PlayerController : MonoBehaviour
     {
         ResummonCube();
     }
+    
     //resummons the grow cube after the z key is used and the player aint already small
     public void ResummonCube()
     {

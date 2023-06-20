@@ -8,7 +8,7 @@ public class LevelTransition : MonoBehaviour
     public string nextLevel;
     public string mainMenu;
 
-    public GameObject instructionsScreen;
+    public GameObject instructionsScreen, creditsScreen1, creditsScreen2, creditsScreen3;
 
     //loads the level set by the words
     public void NextLevel()
@@ -40,5 +40,29 @@ public class LevelTransition : MonoBehaviour
     public void HideInstructions()
     {
         instructionsScreen.SetActive(false);
+    }
+    //turns on and off the different credits depending on which one is on or off
+    public void ShowCredits()
+    {
+        if (creditsScreen1.activeSelf == false && creditsScreen2.activeSelf == false)
+        {
+            creditsScreen1.SetActive(true);
+        }
+        else if (creditsScreen1.activeSelf == true)
+        {
+            creditsScreen1.SetActive(false);
+            creditsScreen2.SetActive(true);
+        }
+        else if (creditsScreen2.activeSelf == true)
+        {
+            creditsScreen2.SetActive(false);
+            creditsScreen3.SetActive(true);
+        }
+    }
+    public void HideCredits()
+    {
+        creditsScreen1.SetActive(false);
+        creditsScreen2.SetActive(false);
+        creditsScreen3.SetActive(false);
     }
 }

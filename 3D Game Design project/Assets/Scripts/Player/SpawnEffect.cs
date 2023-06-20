@@ -10,14 +10,9 @@ public class SpawnEffect : MonoBehaviour {
 
     ParticleSystem ps;
     float timer = 0;
-    Renderer _renderer;
 
-    int shaderProperty;
-
-	void Start ()
+	void Start()
     {
-        shaderProperty = Shader.PropertyToID("_cutoff");
-        _renderer = GetComponent<Renderer>();
         ps = GetComponentInChildren <ParticleSystem>();
 
         var main = ps.main;
@@ -27,20 +22,19 @@ public class SpawnEffect : MonoBehaviour {
 
     }
 	
-	void Update ()
+	void Update()
     {
+        //increases timer until a specific time where upon reaching that time, destroy the object
         if (timer < spawnEffectTime + pause)
         {
+            CubeRoll.Instance.canMove = false;
             timer += Time.deltaTime;
         }
         else
         {
+            CubeRoll.Instance.canMove = true;
             ps.Play();
-            timer = 0;
+            Destroy(gameObject);
         }
-
-
-        _renderer.material.SetFloat(shaderProperty, fadeIn.Evaluate( Mathf.InverseLerp(0, spawnEffectTime, timer)));
-        
     }
 }

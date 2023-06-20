@@ -80,6 +80,10 @@ MonoBehaviour:
   rollForever: 0
   pivot: {x: 0, y: 0, z: 0}
   cubeSize: 1
+  steps: 0
+  canMove: 1
+  walkingParticle: {fileID: 1025285306637258, guid: a3cb54d0f3c09da429514633c6652326, type: 3}
+  spawnParticle: {fileID: 1912731163003908, guid: b91f9ec4347b8724d92e1e5a1792204a, type: 3}
   direction: 0
 --- !u!114 &6231927244557955902
 MonoBehaviour:
@@ -96,8 +100,8 @@ MonoBehaviour:
   growCubes: []
   growCubeData: {fileID: 11400000, guid: 790df8a6459ad6a418832023b1fd0fd4, type: 2}
   biggerGrowCubeData: {fileID: 11400000, guid: 0e4b86da2d000704ab92389a0bfed703, type: 2}
+  number: 0
   chosenGrowCube: 0
-  growCubeNormal: {fileID: 0}
 --- !u!1 &6684207444600936576
 GameObject:
   m_ObjectHideFlags: 0

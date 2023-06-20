@@ -14,7 +14,11 @@ public class CubeRoll : MonoBehaviour
 	[HideInInspector] public float cubeSize = 1; // Block cube size
 	public int steps;
 	public bool canMove = true;
+
+	[Header("Particles")]
 	public GameObject walkingParticle;
+	public GameObject spawnParticle;
+	bool hasSpawnedIn;
 	
 	//enums are something like classes, this allows for easier access to variables we want to change
 	public enum CubeDirection {none, left, up, right, down};
@@ -36,6 +40,7 @@ public class CubeRoll : MonoBehaviour
 		if (steps == 0) steps = 100;
 		//sets the last rotation
 		lastRotation = Quaternion.identity;
+		//PlaySpawnParticle();
 	}
 	public float GetScale() { return cubeSize; }
 
@@ -45,7 +50,21 @@ public class CubeRoll : MonoBehaviour
 		transform.localScale = new Vector3(size, size, size);
 		ResetPosition();
 	}
-
+	//plays the spawn particle and destroys it after awhile
+	void PlaySpawnParticle()
+	{
+		float waitTime = 2.8f;
+		if (!hasSpawnedIn)
+        {
+            Instantiate(spawnParticle, transform.position, Quaternion.identity);
+			hasSpawnedIn = true;
+		}        
+		waitTime -= Time.deltaTime;
+		if (waitTime <= 0)
+        {			
+			Destroy(FindObjectOfType<SpawnEffect>().gameObject);
+        }
+    }
 	void Update() 
 	{
 		if (canMove)
@@ -152,6 +171,9 @@ public class CubeRoll : MonoBehaviour
 			{
 				SceneManager.LoadScene("Lose");
 			}
+
+			PlaySpawnParticle();
+            
 		}
 	}
 	//stops the cube after it has finished moving
