@@ -9913,6 +9913,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 741368906}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &742093308 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 742093308, guid: c83b6d1ef02887e4ca342c7b05c4edfc, type: 3}
+  m_PrefabInstance: {fileID: 1873347820}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &744539058
 GameObject:
   m_ObjectHideFlags: 0
@@ -24547,11 +24552,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c83b6d1ef02887e4ca342c7b05c4edfc, type: 3}
---- !u!1 &1873347821 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 788719245538126477, guid: c83b6d1ef02887e4ca342c7b05c4edfc, type: 3}
-  m_PrefabInstance: {fileID: 1873347820}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1885151623
 GameObject:
   m_ObjectHideFlags: 0
@@ -27532,7 +27532,7 @@ PrefabInstance:
     - target: {fileID: 8802982813299432039, guid: 67006cd1b062637488b923004a15e71e, type: 3}
       propertyPath: winScreen
       value: 
-      objectReference: {fileID: 1873347821}
+      objectReference: {fileID: 742093308}
     - target: {fileID: 8802982813299432039, guid: 67006cd1b062637488b923004a15e71e, type: 3}
       propertyPath: textScreen
       value: 

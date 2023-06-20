@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] int chosenGrowCube;
     GameObject playerCube;    
 
+    //a singleton, makes calling this script easier
     public static PlayerController Instance;
 
     void Awake()

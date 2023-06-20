@@ -19,7 +19,7 @@ public class LevelTransition : MonoBehaviour
     public void StartGame()
     {
         PlayerPrefs.SetInt("collectible", 0);
-        SceneManager.LoadScene(nextLevel);
+        instructionsScreen.SetActive(true);
     }
     //loads the main menu
     public void BackToMainMenu()

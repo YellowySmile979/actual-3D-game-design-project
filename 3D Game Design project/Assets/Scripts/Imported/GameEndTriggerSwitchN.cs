@@ -16,10 +16,10 @@ public class GameEndTriggerSwitchN : MonoBehaviour
         if (collider.GetComponent<PlayerController>() && CubeRoll.Instance.cubeSize == 1)
         {
 			yield return new WaitForSeconds(waitTime);
-			Time.timeScale = 0;
+			CubeRoll.Instance.canMove = false;
 			winScreen.SetActive(true);
 		}
-		if (collider.GetComponent<PlayerController>())
+		if (collider.GetComponent<PlayerController>() && CubeRoll.Instance.cubeSize > 1)
         {
 			textScreen.SetActive(true);
         }

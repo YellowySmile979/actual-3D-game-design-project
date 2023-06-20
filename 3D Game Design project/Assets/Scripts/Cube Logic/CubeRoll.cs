@@ -13,6 +13,7 @@ public class CubeRoll : MonoBehaviour
 	public Vector3 pivot;
 	[HideInInspector] public float cubeSize = 1; // Block cube size
 	public int steps;
+	public bool canMove = true;
 	
 	//enums are something like classes, this allows for easier access to variables we want to change
 	public enum CubeDirection {none, left, up, right, down};
@@ -29,6 +30,7 @@ public class CubeRoll : MonoBehaviour
     }
     void Start() 
 	{
+		canMove = true;
 		//sets the number of steps available
 		if (steps == 0) steps = 100;
 		//sets the last rotation
@@ -45,106 +47,109 @@ public class CubeRoll : MonoBehaviour
 
 	void Update() 
 	{
-		//if (Input.GetKeyDown(KeyCode.Z)) SetScale(2);
-		//else if (Input.GetKeyDown(KeyCode.X)) SetScale(1);
-		//if our localScale does not matche the cubeSize set, then we scale our cube towards the cubeSize gradually
-        if (Mathf.Abs(cubeSize - transform.localScale.x) > 0.1f)
-        {
-			transform.localScale = Vector3.Lerp(
-				transform.localScale, 
-				new Vector3(cubeSize, cubeSize, cubeSize), 
-				Time.deltaTime * 8
-				);
-        }
-        else
-        {
-			transform.localScale = new Vector3(cubeSize, cubeSize, cubeSize);
-        }
-		//checks to see if the cube is moving and in what direction
-        if (direction == CubeDirection.none)
-        {
-			if (Input.GetKeyDown(KeyCode.D)) 
-			{
-				direction = CubeDirection.right;
-			}
-			else if (Input.GetKeyDown(KeyCode.A)) 
-			{
-				direction = CubeDirection.left;
-			}
-			else if (Input.GetKeyDown(KeyCode.W)) 
-			{
-				direction = CubeDirection.up;
-			}
-			else if (Input.GetKeyDown(KeyCode.S)) 
-			{
-				direction = CubeDirection.down;
-			}
-		}
-		else 
+		if (canMove)
 		{
-			//this part checks to see if we are currently moving and if we are,
-			//flip the cube and then also ensure that the cube can move
-			if (!isMoving) 
-			{				
-				if (CheckCollision(direction)) 
+			//if (Input.GetKeyDown(KeyCode.Z)) SetScale(2);
+			//else if (Input.GetKeyDown(KeyCode.X)) SetScale(1);
+			//if our localScale does not matche the cubeSize set, then we scale our cube towards the cubeSize gradually
+			if (Mathf.Abs(cubeSize - transform.localScale.x) > 0.1f)
+			{
+				transform.localScale = Vector3.Lerp(
+					transform.localScale,
+					new Vector3(cubeSize, cubeSize, cubeSize),
+					Time.deltaTime * 8
+					);
+			}
+			else
+			{
+				transform.localScale = new Vector3(cubeSize, cubeSize, cubeSize);
+			}
+			//checks to see if the cube is moving and in what direction
+			if (direction == CubeDirection.none)
+			{
+				if (Input.GetKeyDown(KeyCode.D))
 				{
-					isMoving = false;					
-
-					//if push block is in the way, push it
-					if (hit.collider.gameObject.GetComponent<PushBlock>())
+					direction = CubeDirection.right;
+				}
+				else if (Input.GetKeyDown(KeyCode.A))
+				{
+					direction = CubeDirection.left;
+				}
+				else if (Input.GetKeyDown(KeyCode.W))
+				{
+					direction = CubeDirection.up;
+				}
+				else if (Input.GetKeyDown(KeyCode.S))
+				{
+					direction = CubeDirection.down;
+				}
+			}
+			else
+			{
+				//this part checks to see if we are currently moving and if we are,
+				//flip the cube and then also ensure that the cube can move
+				if (!isMoving)
+				{
+					if (CheckCollision(direction))
 					{
-						hit.collider.gameObject.GetComponent<PushBlock>().Move((transform.position -
-							hit.collider.transform.position).normalized, 1);
+						isMoving = false;
+
+						//if push block is in the way, push it
+						if (hit.collider.gameObject.GetComponent<PushBlock>())
+						{
+							hit.collider.gameObject.GetComponent<PushBlock>().Move((transform.position -
+								hit.collider.transform.position).normalized, 1);
+						}
+						else if (!CheckCollision(direction, true))
+						{
+							CalculatePivot(true);
+							DeductStepCount();
+							isMoving = true;
+							isClimbing = true;
+							return;
+						}
+
+						direction = CubeDirection.none;
+						return;
 					}
-					else if (!CheckCollision(direction, true))
-                    {
-						CalculatePivot(true);
+					else
+					{
+						CalculatePivot();
 						DeductStepCount();
 						isMoving = true;
-						isClimbing = true;
-						return;
-                    }
+					}
+				}
 
-					direction = CubeDirection.none;
-					return;
-				} 
-				else 
+				//handles the rotation of the cube to the new pos
+				//after we determine that the cube is able to move
+				switch (direction)
 				{
-					CalculatePivot();
-					DeductStepCount();
-					isMoving = true;
+					case CubeDirection.right:
+						cubeMesh.transform.RotateAround(pivot, -Vector3.forward, rollSpeed * Time.deltaTime);
+						break;
+
+					case CubeDirection.left:
+						cubeMesh.transform.RotateAround(pivot, Vector3.forward, rollSpeed * Time.deltaTime);
+						break;
+
+					case CubeDirection.up:
+						cubeMesh.transform.RotateAround(pivot, Vector3.right, rollSpeed * Time.deltaTime);
+						break;
+
+					case CubeDirection.down:
+						cubeMesh.transform.RotateAround(pivot, -Vector3.right, rollSpeed * Time.deltaTime);
+						break;
+				}
+				if (Quaternion.Angle(lastRotation, cubeMesh.transform.rotation) > (isClimbing ? 170 : 90))
+				{
+					ResetPosition();
 				}
 			}
 
-			//handles the rotation of the cube to the new pos
-			//after we determine that the cube is able to move
-			switch(direction) 
+			if (transform.position.y <= -10)
 			{
-				case CubeDirection.right:
-					cubeMesh.transform.RotateAround(pivot, -Vector3.forward, rollSpeed * Time.deltaTime);
-                    break;
-
-				case CubeDirection.left:
-					cubeMesh.transform.RotateAround(pivot, Vector3.forward, rollSpeed * Time.deltaTime);
-                    break;
-
-				case CubeDirection.up:
-					cubeMesh.transform.RotateAround(pivot, Vector3.right, rollSpeed * Time.deltaTime);
-                    break;
-
-				case CubeDirection.down:
-					cubeMesh.transform.RotateAround(pivot, -Vector3.right, rollSpeed * Time.deltaTime);
-                    break;
+				SceneManager.LoadScene("Lose");
 			}
-			if (Quaternion.Angle(lastRotation, cubeMesh.transform.rotation) > (isClimbing ? 170 : 90))
-			{
-				ResetPosition();
-			}
-		}
-
-		if(transform.position.y <= -10) 
-		{
-			SceneManager.LoadScene("Lose");
 		}
 	}
 	//stops the cube after it has finished moving
