@@ -14,6 +14,7 @@ public class CubeRoll : MonoBehaviour
 	[HideInInspector] public float cubeSize = 1; // Block cube size
 	public int steps;
 	public bool canMove = true;
+	public GameObject walkingParticle;
 	
 	//enums are something like classes, this allows for easier access to variables we want to change
 	public enum CubeDirection {none, left, up, right, down};
@@ -103,7 +104,7 @@ public class CubeRoll : MonoBehaviour
 						else if (!CheckCollision(direction, true))
 						{
 							CalculatePivot(true);
-							DeductStepCount();
+							DeductStepCount();							
 							isMoving = true;
 							isClimbing = true;
 							return;
@@ -116,6 +117,7 @@ public class CubeRoll : MonoBehaviour
 					{
 						CalculatePivot();
 						DeductStepCount();
+						Instantiate(walkingParticle, transform.position - new Vector3(0, 0.5f, 0), walkingParticle.transform.localRotation);
 						isMoving = true;
 					}
 				}
