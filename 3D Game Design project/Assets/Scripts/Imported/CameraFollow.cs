@@ -22,10 +22,9 @@ public class CameraFollow : MonoBehaviour
 
 	Vector3 newPos;
 
-	void Update() 
+    void Update() 
 	{
-		CameraFollowingPlayer();
-		
+		CameraFollowingPlayer();		
 	}
 	//makes the camera follows the player
 	void CameraFollowingPlayer()
@@ -48,20 +47,4 @@ public class CameraFollow : MonoBehaviour
 		newPos += transform.right * camOffset;
 		transform.position = Vector3.Lerp(transform.position, newPos, Time.deltaTime * camSpeed);
 	}
-	//rotates the camera to face a new direction
-	void ChangeCameraAngle()
-    {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            transform.eulerAngles += new Vector3(transform.localEulerAngles.x + angleOfRotation, 
-												 0, 
-												 0);
-        }
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-			transform.eulerAngles += new Vector3(transform.localEulerAngles.x - angleOfRotation,
-												 0,
-												 0);
-		}
-    }
 }

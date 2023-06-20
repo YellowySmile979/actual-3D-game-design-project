@@ -1928,15 +1928,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8605049764839935633, guid: 02d92e4942abd4f4e8591c177a7e1f5d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.42
+      value: -2.13
       objectReference: {fileID: 0}
     - target: {fileID: 8605049764839935633, guid: 02d92e4942abd4f4e8591c177a7e1f5d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5727575
+      value: 4.1
       objectReference: {fileID: 0}
     - target: {fileID: 8605049764839935633, guid: 02d92e4942abd4f4e8591c177a7e1f5d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.6
+      value: -1.75
       objectReference: {fileID: 0}
     - target: {fileID: 8605049764839935633, guid: 02d92e4942abd4f4e8591c177a7e1f5d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1977,7 +1977,7 @@ PrefabInstance:
     - target: {fileID: 8605049764839935647, guid: 02d92e4942abd4f4e8591c177a7e1f5d, type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 8300000, guid: 559c232a43caebe41870ce54786f604e, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 02d92e4942abd4f4e8591c177a7e1f5d, type: 3}
 --- !u!1 &203184665
@@ -27841,10 +27841,6 @@ PrefabInstance:
     - target: {fileID: 6231927244557955901, guid: 819fc155d3c401e4f9620bac96096389, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6231927244557955903, guid: 819fc155d3c401e4f9620bac96096389, type: 3}
-      propertyPath: steps
-      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 819fc155d3c401e4f9620bac96096389, type: 3}

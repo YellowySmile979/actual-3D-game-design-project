@@ -4,12 +4,17 @@ using UnityEngine;
 
 public class PuzzleButton : MonoBehaviour
 {
+    [Header("List for objects")]
     public List<GameObject> blocksAffected = new List<GameObject>();
     public List<GameObject> buttons = new List<GameObject>();
 
+    [Header("Boolean Checks")]
     public bool hasBeenAffected;
     public bool isResetButton = false;
     public bool isPlatformConnector;
+
+    [Header("SFX")]
+    public AudioClip gameButtonSFX;
 
     //decides if the block should turn off or on
     void DecideToOnOrOffObject()
@@ -32,6 +37,8 @@ public class PuzzleButton : MonoBehaviour
     
     void OnTriggerEnter(Collider other)
     {
+        SFXManager.Instance.audioSource.PlayOneShot(gameButtonSFX);
+
         //checks to see if the player is collided and if the button is not a reset button
         if (other.GetComponent<PlayerController>() && !isResetButton)
         {

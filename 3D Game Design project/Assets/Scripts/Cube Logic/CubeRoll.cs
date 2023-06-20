@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class CubeRoll : MonoBehaviour 
 {
+	[Header("Cube Info")]
 	public Transform cubeMesh;
 	public bool rollForever = false;
 	private float rollSpeed = 400;
@@ -19,6 +20,9 @@ public class CubeRoll : MonoBehaviour
 	public GameObject walkingParticle;
 	public GameObject spawnParticle;
 	bool hasSpawnedIn;
+
+	[Header("SFX")]
+	public AudioClip cubeMoveSFX;
 	
 	//enums are something like classes, this allows for easier access to variables we want to change
 	public enum CubeDirection {none, left, up, right, down};
@@ -56,7 +60,7 @@ public class CubeRoll : MonoBehaviour
 		float waitTime = 2.8f;
 		if (!hasSpawnedIn)
         {
-            Instantiate(spawnParticle, transform.position, Quaternion.identity);
+			Instantiate(spawnParticle, transform.position, Quaternion.identity);
 			hasSpawnedIn = true;
 		}        
 		waitTime -= Time.deltaTime;
@@ -173,7 +177,6 @@ public class CubeRoll : MonoBehaviour
 			}
 
 			PlaySpawnParticle();
-            
 		}
 	}
 	//stops the cube after it has finished moving
@@ -292,6 +295,7 @@ public class CubeRoll : MonoBehaviour
 
 	void DeductStepCount() 
 	{
+		SFXManager.Instance.audioSource.PlayOneShot(cubeMoveSFX);
 		steps -= 1;
 
 		if(steps <= 0) 

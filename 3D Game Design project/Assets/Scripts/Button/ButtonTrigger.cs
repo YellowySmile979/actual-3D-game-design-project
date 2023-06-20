@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class ButtonTrigger : MonoBehaviour
 {
+    [Header("Lists of objects")]
     public List<BlockAffectedByButton> objectsAffected = new List<BlockAffectedByButton>();
     public List<GameObject> platformBlocks = new List<GameObject>();
 
+    [Header("Boolean Check")]
     [SerializeField] bool activateYesOrNo;
+
+    [Header("SFX")]
+    public AudioClip gameButtonSFX;
 
     // Start is called before the first frame update
     void Start()
@@ -18,6 +23,11 @@ public class ButtonTrigger : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         if(other.GetComponent<PlayerController>())
+        {
+            SFXManager.Instance.audioSource.PlayOneShot(gameButtonSFX);
+        }
+
+        if (other.GetComponent<PlayerController>())
         {
             //a bool flipflop
             activateYesOrNo = !activateYesOrNo;
