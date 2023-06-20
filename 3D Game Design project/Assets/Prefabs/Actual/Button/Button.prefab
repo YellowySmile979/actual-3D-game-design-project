@@ -66,8 +66,9 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   platformBlocks: []
-  activateYesOrNo: 1
+  activateYesOrNo: 0
   gameButtonSFX: {fileID: 8300000, guid: b9eff218e132a4e76be78840eca96fb2, type: 3}
+  volumeOfSFX: 0.5
 --- !u!1 &2383551000555554067
 GameObject:
   m_ObjectHideFlags: 0

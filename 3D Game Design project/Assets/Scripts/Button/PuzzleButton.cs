@@ -15,6 +15,8 @@ public class PuzzleButton : MonoBehaviour
 
     [Header("SFX")]
     public AudioClip gameButtonSFX;
+    [Range(0, 1)]
+    public float volumeOfSFX;
 
     //decides if the block should turn off or on
     void DecideToOnOrOffObject()
@@ -37,7 +39,10 @@ public class PuzzleButton : MonoBehaviour
     
     void OnTriggerEnter(Collider other)
     {
-        SFXManager.Instance.audioSource.PlayOneShot(gameButtonSFX);
+        if(other.GetComponent<PlayerController>())
+        {
+            SFXManager.Instance.audioSource.PlayOneShot(gameButtonSFX, volumeOfSFX);
+        }
 
         //checks to see if the player is collided and if the button is not a reset button
         if (other.GetComponent<PlayerController>() && !isResetButton)

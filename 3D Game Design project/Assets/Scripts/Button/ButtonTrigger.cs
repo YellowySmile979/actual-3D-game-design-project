@@ -13,6 +13,8 @@ public class ButtonTrigger : MonoBehaviour
 
     [Header("SFX")]
     public AudioClip gameButtonSFX;
+    [Range(0, 1)]
+    public float volumeOfSFX;
 
     // Start is called before the first frame update
     void Start()
@@ -24,7 +26,7 @@ public class ButtonTrigger : MonoBehaviour
     {
         if(other.GetComponent<PlayerController>())
         {
-            SFXManager.Instance.audioSource.PlayOneShot(gameButtonSFX);
+            SFXManager.Instance.audioSource.PlayOneShot(gameButtonSFX, volumeOfSFX);
         }
 
         if (other.GetComponent<PlayerController>())

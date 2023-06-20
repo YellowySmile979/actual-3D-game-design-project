@@ -4475,11 +4475,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6231927244557955901, guid: 819fc155d3c401e4f9620bac96096389, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 1.05
       objectReference: {fileID: 0}
     - target: {fileID: 6231927244557955901, guid: 819fc155d3c401e4f9620bac96096389, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6.5
+      value: 7.5
       objectReference: {fileID: 0}
     - target: {fileID: 6231927244557955901, guid: 819fc155d3c401e4f9620bac96096389, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4512,6 +4512,10 @@ PrefabInstance:
     - target: {fileID: 6231927244557955902, guid: 819fc155d3c401e4f9620bac96096389, type: 3}
       propertyPath: growCubeNormal
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6231927244557955903, guid: 819fc155d3c401e4f9620bac96096389, type: 3}
+      propertyPath: steps
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 819fc155d3c401e4f9620bac96096389, type: 3}
@@ -25893,6 +25897,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1873347822, guid: c83b6d1ef02887e4ca342c7b05c4edfc, type: 3}
+      propertyPath: nextLevel
+      value: Level 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2639142185141346221, guid: c83b6d1ef02887e4ca342c7b05c4edfc, type: 3}
       propertyPath: m_Name
       value: Canvas

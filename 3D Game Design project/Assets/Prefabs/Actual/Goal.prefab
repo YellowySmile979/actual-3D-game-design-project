@@ -125,3 +125,5 @@ MonoBehaviour:
   waitTime: 0.2
   winScreen: {fileID: 0}
   textScreen: {fileID: 0}
+  winSFX: {fileID: 8300000, guid: 7478151cf36724a7dada558f746c3633, type: 3}
+  volumeOfSFX: 0.7

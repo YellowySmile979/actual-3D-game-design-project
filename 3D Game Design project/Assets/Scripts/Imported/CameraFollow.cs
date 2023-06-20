@@ -20,8 +20,20 @@ public class CameraFollow : MonoBehaviour
 	public float angleOfRotation = 90f;
 	public bool doIWantFixedCamera;
 
+	[Header("Audio")]
+	public AudioSource audioSource;
+
+	public static CameraFollow Instance;
 	Vector3 newPos;
 
+    void Awake()
+    {
+		Instance = this;
+    }
+    void Start()
+    {
+		audioSource = GetComponent<AudioSource>();
+    }
     void Update() 
 	{
 		CameraFollowingPlayer();		

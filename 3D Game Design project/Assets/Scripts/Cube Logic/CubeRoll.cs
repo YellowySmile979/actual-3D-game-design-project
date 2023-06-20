@@ -255,7 +255,7 @@ public class CubeRoll : MonoBehaviour
 		pivot = transform.position + (pivot * cubeSize * 0.5f);
 		if(GetComponent<AudioSource>()) GetComponent<AudioSource>().Play(); // Play the flop sound 
 	}
-
+	//handles the cube's collision with other colliders
 	bool CheckCollision(CubeDirection direction, bool checkAbove = false) 
 	{
 		Vector3 dir = Vector3.zero, offset = checkAbove ? Vector3.up * cubeSize : Vector3.zero;
@@ -292,9 +292,10 @@ public class CubeRoll : MonoBehaviour
 			return true;
 		}
 	}
-
+	//does what the function says
 	void DeductStepCount() 
 	{
+		//plays movement sfx
 		SFXManager.Instance.audioSource.PlayOneShot(cubeMoveSFX);
 		steps -= 1;
 
