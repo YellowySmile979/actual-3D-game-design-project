@@ -40,6 +40,7 @@ public class LevelTransition : MonoBehaviour
     public void Resume()
     {
         pauseScreen.SetActive(false);
+        CubeRoll.Instance.canMove = true;
         Time.timeScale = 1;
         CameraFollow.Instance.audioSource.UnPause();
     }

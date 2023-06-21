@@ -462,7 +462,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0.000011444, y: 215}
+  m_AnchoredPosition: {x: 0.000011444, y: 208}
   m_SizeDelta: {x: 753.481, y: 170.65}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &891231803
@@ -487,7 +487,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 794cfaa129a7ec046a5884a5b731d0e1, type: 3}
-    m_FontSize: 36
+    m_FontSize: 33
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
@@ -771,6 +771,7 @@ MonoBehaviour:
   nextLevel: Title
   mainMenu: Title
   instructionsScreen: {fileID: 0}
+  pauseScreen: {fileID: 0}
   creditsScreen1: {fileID: 0}
   creditsScreen2: {fileID: 0}
   creditsScreen3: {fileID: 0}
@@ -1051,8 +1052,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -4.075, y: 215}
-  m_SizeDelta: {x: 761.631, y: 170.65}
+  m_AnchoredPosition: {x: -4.075, y: 218.76}
+  m_SizeDelta: {x: 761.631, y: 163.131}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2106488258
 MonoBehaviour:
