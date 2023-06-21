@@ -114,6 +114,8 @@ MonoBehaviour:
   bobSpeed: 0.5
   rotateSpeed: 120
   pivot: {fileID: 1790591398119500760}
+  growCubeSFX: {fileID: 8300000, guid: 7bd6b897eb5ca4b7d88a205c4a51640c, type: 3}
+  volumeofSFX: 0.7
   growCubeData: {fileID: 11400000, guid: 790df8a6459ad6a418832023b1fd0fd4, type: 2}
 --- !u!1001 &1790591398050145313
 PrefabInstance:

@@ -7,8 +7,14 @@ public class PlayerController : MonoBehaviour
     [Header("Related to Grow Cube")]
     public List<GameObject> growCubes = new List<GameObject>();
     public GrowCubeData growCubeData, biggerGrowCubeData;
+    public GameObject growCubePrefab, biggerGrowCubePrefab;
     public int number;
     [SerializeField] int chosenGrowCube;
+
+    [Header("SFX")]
+    public AudioClip shrinkSFX;
+    [Range(0, 1)]
+    public float volumeOfSFX;
 
     GameObject playerCube;    
 
@@ -36,19 +42,20 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Z) && playerCube.transform.localScale != new Vector3(1, 1, 1))
         {
+            SFXManager.Instance.audioSource.PlayOneShot(shrinkSFX, volumeOfSFX);
             //helps check and spawn the right grow cube
             switch (chosenGrowCube) 
             {
                 default:
                     return;
                 case 0:
-                    //finds the correct growcube within the list and spawns it
+                    //spawns the corresponding prefab
                     GameObject growCube = Instantiate(
-                        growCubes.Find(s => growCubeData.growthSizeFactor == GrowCubeData.GrowthSizeFactor.size2), 
+                        growCubePrefab, 
                         transform.position + new Vector3(0.5f, 0, 0.5f), 
                         Quaternion.identity
                         );
-                    //afterwards immediately deleting it
+                    //afterwards immediately deleting it by finding the same type within the list
                     growCubes.Remove(growCubes.Find(b => growCube));
                     CubeRoll.Instance.SetScale(1);
                     growCubeData.hasBeenUsed = false;
@@ -57,7 +64,7 @@ public class PlayerController : MonoBehaviour
                 case 1:
                     //same thing as above
                     GameObject biggerGrowCube = Instantiate(
-                        growCubes.Find(a => biggerGrowCubeData.growthSizeFactor == GrowCubeData.GrowthSizeFactor.size3),
+                        biggerGrowCubePrefab,
                         transform.position + new Vector3(-1.5f, -1, -1.5f),
                         Quaternion.identity
                         );

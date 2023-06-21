@@ -25,6 +25,7 @@ public class SpawnEffect : MonoBehaviour {
 	void Update()
     {
         //increases timer until a specific time where upon reaching that time, destroy the object
+        //prevents player from moving until the timer runs out
         if (timer < spawnEffectTime + pause)
         {
             CubeRoll.Instance.canMove = false;

@@ -41,11 +41,13 @@ public class CameraFollow : MonoBehaviour
 	//makes the camera follows the player
 	void CameraFollowingPlayer()
     {
+		//sets pivot and the pos of the cam to the pivot
 		camPivot = target.transform.position;
 		newPos = camPivot;
 
 		if(doIWantFixedCamera) transform.eulerAngles = camRotation;
 
+		//depending on if the cam is orthographic or not, do the following
 		if (GetComponent<Camera>().orthographic)
 		{
 			newPos += -transform.forward * camDistance * 4F;

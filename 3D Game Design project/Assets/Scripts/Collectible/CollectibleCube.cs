@@ -7,12 +7,18 @@ public class CollectibleCube : MonoBehaviour
     [Header("Cube Bob")]
     public float cubeBobOffset;
     public float bobSpeed = 5f;
+
     [Header("Cube Rotate")]
     public float rotateSpeed = 5f;
     public GameObject pivot;
     bool direction;
     Vector3 originalPosition;
     Quaternion originalRotation;
+
+    [Header("SFX")]
+    public AudioClip collectibleSFX;
+    [Range(0, 1)]
+    public float volumeofSFX;
 
     void Awake()
     {
@@ -31,8 +37,10 @@ public class CollectibleCube : MonoBehaviour
     }
     void OnTriggerEnter(Collider other)
     {
+        //when player collides, play SFX, send info to CountCollectibles() and then destroy self
         if (other.GetComponent<CubeRoll>())
         {
+            SFXManager.Instance.audioSource.PlayOneShot(collectibleSFX, volumeofSFX);
             CanvasScript.Instance.CountCollectibles(1);
             Destroy(gameObject);
         }

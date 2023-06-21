@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SFXManager : MonoBehaviour
 {
+    //this script is just a glorified audioplayer
+
     [Header("Audio")]
     public AudioSource audioSource;
 
@@ -17,11 +19,5 @@ public class SFXManager : MonoBehaviour
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

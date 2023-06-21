@@ -48,6 +48,7 @@ public class CubeRoll : MonoBehaviour
 	}
 	public float GetScale() { return cubeSize; }
 
+	//sets the scale of the player cube
 	public void SetScale(float size)
 	{
 		cubeSize = size;

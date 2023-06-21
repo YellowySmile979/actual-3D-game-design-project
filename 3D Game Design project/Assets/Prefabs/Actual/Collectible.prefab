@@ -113,6 +113,8 @@ MonoBehaviour:
   bobSpeed: 0.5
   rotateSpeed: 120
   pivot: {fileID: 1856084520243570742}
+  collectibleSFX: {fileID: 8300000, guid: 52320e590bf774734a288886eba557ba, type: 3}
+  volumeofSFX: 0.7
 --- !u!1001 &839776371
 PrefabInstance:
   m_ObjectHideFlags: 0

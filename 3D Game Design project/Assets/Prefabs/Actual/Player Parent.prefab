@@ -101,8 +101,12 @@ MonoBehaviour:
   growCubes: []
   growCubeData: {fileID: 11400000, guid: 790df8a6459ad6a418832023b1fd0fd4, type: 2}
   biggerGrowCubeData: {fileID: 11400000, guid: 0e4b86da2d000704ab92389a0bfed703, type: 2}
+  growCubePrefab: {fileID: 1790591398119500760, guid: bf06b3a320340934ebff2c0583113c7f, type: 3}
+  biggerGrowCubePrefab: {fileID: 3525897599831993110, guid: 243551bfb61689145b3b297e27145cec, type: 3}
   number: 0
   chosenGrowCube: 0
+  shrinkSFX: {fileID: 8300000, guid: a235d590ef2a04d1b85b61ef4c21337c, type: 3}
+  volumeOfSFX: 0.7
 --- !u!1 &6684207444600936576
 GameObject:
   m_ObjectHideFlags: 0

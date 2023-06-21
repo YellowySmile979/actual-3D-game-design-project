@@ -6,15 +6,22 @@ public abstract class BaseGrowCube : MonoBehaviour
 {
     [Header("Grow Cube Info")]
     public int whichOneToUse = 0;
+
     [Header("Cube Bob")]
     public float cubeBobOffset;
     public float bobSpeed = 5f;
+
     [Header("Cube Rotate")]
     public float rotateSpeed = 5f;
     public GameObject pivot;
     bool direction;
     protected Vector3 originalPosition;
     protected Quaternion originalRotation;
+
+    [Header("SFX")]
+    public AudioClip growCubeSFX;
+    [Range(0, 1)]
+    public float volumeofSFX;
 
     void Start()
     {
@@ -35,6 +42,7 @@ public abstract class BaseGrowCube : MonoBehaviour
             GrowCubeBigger.Instance.biggerGrowCubeData.hasBeenUsed == false) 
             && other.GetComponent<CubeRoll>())
         {
+            SFXManager.Instance.audioSource.PlayOneShot(growCubeSFX, volumeofSFX);
             //updates the function that check and ensures the right size of the cube is set
             PlayerController.Instance.IndexOfGrowCube(whichOneToUse);
             //decides which instructions to use
@@ -50,6 +58,7 @@ public abstract class BaseGrowCube : MonoBehaviour
             }
             else if (whichOneToUse == 1)
             {
+                //performs same function as above, except this is for the bigger grow cube
                 if (PlayerController.Instance.number == 1)
                 {
                     CubeRoll.Instance.SetScale(GrowCubeBigger.Instance.biggerGrowCubeData.scaleFactor);

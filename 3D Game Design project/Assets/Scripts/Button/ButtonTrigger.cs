@@ -19,11 +19,13 @@ public class ButtonTrigger : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //adds objects to the list if the list is null
         if (objectsAffected == null) objectsAffected.AddRange(FindObjectsOfType<BlockAffectedByButton>());
     }
 
     void OnTriggerEnter(Collider other)
     {
+        //plays the music
         if(other.GetComponent<PlayerController>())
         {
             SFXManager.Instance.audioSource.PlayOneShot(gameButtonSFX, volumeOfSFX);

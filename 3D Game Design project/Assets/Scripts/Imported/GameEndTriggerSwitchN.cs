@@ -19,19 +19,27 @@ public class GameEndTriggerSwitchN : MonoBehaviour
 	//otherwise show textScreen
 	IEnumerator OnTriggerEnter(Collider collider) 
 	{
+		//checks to see if player is colliding and if the player is small
         if (collider.GetComponent<PlayerController>() && CubeRoll.Instance.cubeSize == 1)
         {
+			//waits a little before doing the following
 			yield return new WaitForSeconds(waitTime);
+			//"pauses" the game
 			CameraFollow.Instance.audioSource.Pause();
+			//plays win sfx
 			SFXManager.Instance.audioSource.PlayOneShot(winSFX, volumeOfSFX);
+			//prevents player from moving
 			CubeRoll.Instance.canMove = false;
+			//turns on win screen
 			winScreen.SetActive(true);
 		}
+		//if player aint small, turn on text
 		if (collider.GetComponent<PlayerController>() && CubeRoll.Instance.cubeSize > 1)
         {
 			textScreen.SetActive(true);
         }
 	}
+	//when cube moves out, turn off text screen
     void OnTriggerExit(Collider other)
     {
         if (other.GetComponent<PlayerController>())

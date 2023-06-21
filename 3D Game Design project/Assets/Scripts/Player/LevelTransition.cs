@@ -8,21 +8,56 @@ public class LevelTransition : MonoBehaviour
     [Header("Scene")]
     public string nextLevel;
     public string mainMenu;
-    public GameObject instructionsScreen, creditsScreen1, creditsScreen2, creditsScreen3, creditsScreen4, creditsScreen5;
+    public GameObject instructionsScreen, pauseScreen,
+        creditsScreen1, creditsScreen2, creditsScreen3, creditsScreen4, creditsScreen5, creditsScreen6;
 
     [Header("SFX")]
     public AudioClip buttonSFX;
     [Range(0, 1)]
     public float volumeOfSFX = 0.7f;
-    public AudioClip loseSFX;
+    public AudioClip loseSFX, winSFX;
     public bool playLoseSFX = false;
+    public bool playWinSFX = false;
 
     void Start()
     {
+        //plays losesfx if bool is ticked
         if (playLoseSFX)
         {
             PlayLoseSFX();
         }
+        //plays winsfx if bool is ticked
+        if (playWinSFX)
+        {
+            PlayWinSFX();
+        }
+    }
+    void Update()
+    {
+        Pause();
+    }
+    //resumes the level
+    public void Resume()
+    {
+        pauseScreen.SetActive(false);
+        Time.timeScale = 1;
+        CameraFollow.Instance.audioSource.UnPause();
+    }
+    //pauses level
+    void Pause()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            CubeRoll.Instance.canMove = false;
+            Time.timeScale = 0;
+            pauseScreen.SetActive(true);
+            CameraFollow.Instance.audioSource.Pause();
+        }
+    }
+    //plays winSFX
+    public void PlayWinSFX()
+    {
+        SFXManager.Instance.audioSource.PlayOneShot(winSFX, volumeOfSFX);
     }
     //plays the loseSFX
     public void PlayLoseSFX()
@@ -97,6 +132,11 @@ public class LevelTransition : MonoBehaviour
             creditsScreen5.SetActive(true);
             counter++;
         }
+        else if (counter == 5)
+        {
+            creditsScreen6.SetActive(true);
+            counter++;
+        }
     }
     //hides the credits
     public void HideCredits()
@@ -109,5 +149,6 @@ public class LevelTransition : MonoBehaviour
         creditsScreen3.SetActive(false);
         creditsScreen4.SetActive(false);
         creditsScreen5.SetActive(false);
+        creditsScreen6.SetActive(false);
     }
 }

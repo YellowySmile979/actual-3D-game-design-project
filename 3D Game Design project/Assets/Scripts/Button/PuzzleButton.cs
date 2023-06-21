@@ -18,11 +18,18 @@ public class PuzzleButton : MonoBehaviour
     [Range(0, 1)]
     public float volumeOfSFX;
 
+    [Header("Info Text")]
+    public GameObject infoText;
+
     //decides if the block should turn off or on
     void DecideToOnOrOffObject()
     {
         if (!isResetButton)
         {
+            //you have seen this quite often, so this comment is for all of this
+            //ForEach() from a list is like foreach()
+            //essentially for all of this type, perform function
+            //do take note that this is written as <list>.ForEach(delegate (<type> var) {<ur code>});
             blocksAffected.ForEach(delegate (GameObject gameObject)
             {
                 if (gameObject.activeSelf == true)
@@ -39,7 +46,8 @@ public class PuzzleButton : MonoBehaviour
     
     void OnTriggerEnter(Collider other)
     {
-        if(other.GetComponent<PlayerController>())
+        //plays the music
+        if (other.GetComponent<PlayerController>())
         {
             SFXManager.Instance.audioSource.PlayOneShot(gameButtonSFX, volumeOfSFX);
         }
@@ -88,6 +96,7 @@ public class PuzzleButton : MonoBehaviour
             {
                 gameObject.SetActive(false);
             });
+            infoText.SetActive(false);
         }
     }
 }

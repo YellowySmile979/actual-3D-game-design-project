@@ -8,6 +8,7 @@ public class GrowCubeBigger : BaseGrowCube
     public GrowCubeData biggerGrowCubeData;
 
     public static GrowCubeBigger Instance;
+    //sets original position
     void Awake()
     {
         Instance = this;
