@@ -62,7 +62,7 @@ public class CubeRoll : MonoBehaviour
 		if (!hasSpawnedIn)
         {
 			Instantiate(spawnParticle, transform.position, Quaternion.identity);
-			hasSpawnedIn = true;
+			hasSpawnedIn = true; 
 		}        
 		waitTime -= Time.deltaTime;
 		if (waitTime <= 0)
